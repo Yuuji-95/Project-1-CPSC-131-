@@ -25,6 +25,89 @@ template<typename T> class Inventory{
                 std::cout<<std::left << std::setw(20)<<items[i].name<<std::setw(15)<<items[i].expiration<<std::setw(15)<<items[i].quantity<<std::setw(15)<<items[i].category<<std::endl;
             }
         }
+
+        // New addNewItem() method
+    void addNewItem(const Item<T>& newItem) {
+        // Check if the item already exists in the inventory
+        for (const auto& item : items) {
+            if (item.name == newItem.name) {
+                std::cout << "Item is already present in inventory." << std::endl;
+                return;
+            }
+        }
+        // If the item does not exist, add it to the inventory
+        items.push_back(newItem);
+    }
+
+
+    // Function to increase the quantity of an item
+    void increaseQuantity(const T& itemName, int quantity) {
+        for (auto& item : items) {
+            if (item.name == itemName) {
+                item.quantity += quantity;
+                std::cout << "Quantity has increased: " << item.quantity << std::endl;
+                return;
+            }
+        }
+
+
+        // If the item is not found, you might want to handle that case as well
+        std::cout << "Item not found in inventory." << std::endl;
+    }
+
+
+    // Function to update an item's details in the inventory
+    void updateItem(const T& itemName, const T& newExpiration, const T& newCategory, int newQuantity) {
+        for (auto& item : items) {
+            if (item.name == itemName) {
+                item.expiration = newExpiration;
+                item.category = newCategory;
+                item.quantity = newQuantity;
+                std::cout << "Item " << itemName << " updated" << std::endl;
+                return;
+            }
+        }
+        // Item not found, throw an exception
+        throw std::runtime_error("Item not found");
+    }
+
+
+    // Function to remove an item from the inventory
+    void removeItem(const T& itemName) {
+        auto it = std::find_if(items.begin(), items.end(), [&itemName](const Item<T>& item) {
+            return item.name == itemName;
+        });
+
+
+        if (it != items.end()) {
+            items.erase(it);
+            std::cout << "Item " << itemName << " removed" << std::endl;
+        } else {
+            // Item not found, throw an exception
+            throw std::runtime_error("Item not found");
+        }
+    }
+
+
+    void Total() {
+        std::cout << "Total Number of items in inventory = " << items.size() << std::endl;
+    }
+
+
+    void searchItem(const T& itemName) {
+        for (const auto& item : items) {
+            if (item.name == itemName) {
+                std::cout << "Query for " << itemName << std::endl;
+                std::cout << "Item = " << item.name << std::endl;
+                std::cout << "Expiration Date = " << item.expiration << std::endl;
+                std::cout << "Category= " << item.category << std::endl;
+                std::cout << "Quantity= " << item.quantity << std::endl;
+                return;
+            }
+        }
+        throw std::runtime_error("Item not found!");
+    }
+
 };
 template<typename T>class Appointment{
     public: 
@@ -49,6 +132,46 @@ template<typename T>class AppointmentSystem{
                 std::cout<<std::left << std::setw(20)<<ap[i].c_name<<std::setw(15)<<ap[i].ap_date<<std::setw(15)<<ap[i].ap_time<<std::setw(15)<<ap[i].CWID<<std::endl;
             }
         }
+
+        // Function to schedule a new appointment
+    void schedule(const Appointment<T>& newAppointment) {
+        // Check if an appointment with the same CWID already exists
+        for (const auto& appointment : appointments) {
+            if (appointment.CWID == newAppointment.CWID) {
+                std::cout << "You have already scheduled an appointment!!!" << std::endl;
+                return;
+            }
+        }
+
+
+        // If the CWID is not found, add the new appointment
+        appointments.push_back(newAppointment);
+        std::cout << "Appointment scheduled for: " << newAppointment.name << std::endl;
+    }
+
+
+    // Function to calculate the total number of appointments for a specific date and time
+    void Total_appointments(const T& date, const T& time) {
+        int count = 0;
+        for (const auto& appointment : appointments) {
+            if (appointment.ap_date == date && appointment.ap_time == time) {
+                ++count;
+            }
+        }
+        std::cout << "Total Appointments = " << count << std::endl;
+    }
+
+
+    // Function to remove the most recently booked appointment
+    void removeRecent() {
+        if (!appointments.empty()) {
+            appointments.pop_back();  // Remove the last element of the vector
+            std::cout << "Most recent appointment removed." << std::endl;
+        } else {
+            std::cout << "No appointments to remove." << std::endl;
+        }
+    }
+
 };
 int main(){
     /* Remove comments and run following test cases
