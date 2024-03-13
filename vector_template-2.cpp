@@ -122,7 +122,7 @@ template<typename T>class AppointmentSystem{
             std::cout<<"-------Appointments-------"<<std::endl;
             std::cout<<std::left<<std::setw(20)<<"Name"<<std::setw(15)<<"Date"<<std::setw(15)<<"Time"<<std::setw(15)<<"CWID"<<std::endl;
             for(int i=0; i<appointments.size();i++){
-                std::cout<<std::left << std::setw(20)<<appointments[i].c_name<<std::setw(15)<<ap[i].ap_date<<std::setw(15)<<ap[i].ap_time<<std::setw(15)<<ap[i].CWID<<std::endl;
+                std::cout<<std::left << std::setw(20)<<appointments[i].c_name<<std::setw(15)<<appointments[i].ap_date<<std::setw(15)<<appointments[i].ap_time<<std::setw(15)<<appointments[i].CWID<<std::endl;
             }
         }
 
