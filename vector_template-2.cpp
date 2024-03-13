@@ -60,7 +60,7 @@ template<typename T> class Inventory{
             return;
         }
     }
-        std::cout << "Item not found, cannot update." << std::endl;
+        std::cout << "Item not found" << std::endl;
     }
 
     void removeItem(const T& itemName) {
