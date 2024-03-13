@@ -71,7 +71,7 @@ template<typename T> class Inventory{
             return;
         }
     }
-    std::cout << "Error: Item '" << itemName << "' not found in inventory." << std::endl;
+    std::cout << "Item not found!!" << std::endl;
 }
 
 
