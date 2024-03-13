@@ -1,7 +1,8 @@
-#include<iostream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <string>
+#include <vector>
 #include <iomanip>
+#include <algorithm>
 
 template <typename T> class Item{
     public:
@@ -120,7 +121,7 @@ template<typename T>class AppointmentSystem{
         void display(){
             std::cout<<"-------Appointments-------"<<std::endl;
             std::cout<<std::left<<std::setw(20)<<"Name"<<std::setw(15)<<"Date"<<std::setw(15)<<"Time"<<std::setw(15)<<"CWID"<<std::endl;
-            for(int i=0; i<ap.size();i++){
+            for(int i=0; i<appointments.size();i++){
                 std::cout<<std::left << std::setw(20)<<ap[i].c_name<<std::setw(15)<<ap[i].ap_date<<std::setw(15)<<ap[i].ap_time<<std::setw(15)<<ap[i].CWID<<std::endl;
             }
         }
@@ -134,7 +135,7 @@ template<typename T>class AppointmentSystem{
         }
 
         appointments.push_back(newAppointment);
-        std::cout << "Appointment scheduled for: " << newAppointment.name << std::endl;
+        std::cout << "Appointment scheduled for: " << newAppointment.c_name << std::endl;
     }
 
         void Total_appointments(const T& date, const T& time) {
