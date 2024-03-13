@@ -52,32 +52,31 @@ template<typename T> class Inventory{
     }
 
     void updateItem(const T& itemName, const T& newExpiration, const T& newCategory, int newQuantity) {
-        for (auto& item : items) {
-            if (item.name == itemName) {
-                item.expiration = newExpiration;
-                item.category = newCategory;
-                item.quantity = newQuantity;
-                std::cout << "Item " << itemName << " updated" << std::endl;
-                return;
-            }
+    for (auto& item : items) {
+        if (item.name == itemName) {
+            item.expiration = newExpiration;
+            item.category = newCategory;
+            item.quantity = newQuantity;
+            std::cout << "Item " << itemName << " updated" << std::endl;
+            return;
         }
-        throw std::runtime_error("Item not found");
+    }
+        std::cout << "Item not found, cannot update." << std::endl;
     }
 
     void removeItem(const T& itemName) {
-        auto it = std::find_if(items.begin(), items.end(), [&itemName](const Item<T>& item) {
-            return item.name == itemName;
-        });
+    auto it = std::find_if(items.begin(), items.end(), [&itemName](const Item<T>& item) {
+        return item.name == itemName;
+    });
 
-
-        if (it != items.end()) {
-            items.erase(it);
-            std::cout << "Item " << itemName << " removed" << std::endl;
-        } else {
-            // Item not found, throw an exception
-            throw std::runtime_error("Item not found");
-        }
+    if (it != items.end()) {
+        items.erase(it);
+        std::cout << "Item " << itemName << " removed" << std::endl;
+    } else {
+        // Instead of throwing an exception, print an error message
+        std::cout << "Error: Item '" << itemName << "' not found in inventory." << std::endl;
     }
+}
 
 
     void Total() {
