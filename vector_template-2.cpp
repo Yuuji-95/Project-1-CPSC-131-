@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <algorithm>
 
 template <typename T> class Item{
     public:
@@ -65,17 +64,14 @@ template<typename T> class Inventory{
     }
 
     void removeItem(const T& itemName) {
-    auto it = std::find_if(items.begin(), items.end(), [&itemName](const Item<T>& item) {
-        return item.name == itemName;
-    });
-
-    if (it != items.end()) {
-        items.erase(it);
-        std::cout << "Item " << itemName << " removed" << std::endl;
-    } else {
-        // Instead of throwing an exception, print an error message
-        std::cout << "Error: Item '" << itemName << "' not found in inventory." << std::endl;
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if (it->name == itemName) {
+            items.erase(it);
+            std::cout << "Item " << itemName << " removed" << std::endl;
+            return;
+        }
     }
+    std::cout << "Error: Item '" << itemName << "' not found in inventory." << std::endl;
 }
 
 
